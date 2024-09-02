@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ResidentRepository extends JpaRepository<Resident,Integer> {
-    //hello
+
     @Query(value = "SELECT r.id_resident AS idResident, r.full_name AS fullName, r.phone_number AS phoneNumber, b.name AS buildingName " +
             "FROM resident r " +
             "JOIN building b ON r.id_building = b.id_building " +
