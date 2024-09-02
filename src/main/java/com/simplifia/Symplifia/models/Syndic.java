@@ -14,7 +14,7 @@ import java.util.List;
 
 @Data
 @Entity
-//@Table(name = "syndic")
+@Table(name = "syndic")
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idSyndic")
 public class Syndic {
     @Id

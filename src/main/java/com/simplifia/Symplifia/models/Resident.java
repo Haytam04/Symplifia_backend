@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "resident")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idResident")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idResident")
 public class Resident {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
