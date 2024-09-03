@@ -31,4 +31,10 @@ public class InvoiceController {
         Invoice confirmedInvoice = invoiceService.confirmPayment(residentId, month, year);
         return ResponseEntity.ok(new InvoiceDTO(confirmedInvoice));
     }
+
+    @PostMapping
+    public ResponseEntity<Invoice> createInvoice(@RequestBody Invoice invoiceDetails) {
+        Invoice savedInvoice = invoiceService.createInvoice(invoiceDetails);
+        return ResponseEntity.ok(savedInvoice);
+    }
 }
