@@ -4,6 +4,7 @@ import com.simplifia.Symplifia.dto.InvoiceDTO;
 import com.simplifia.Symplifia.dto.ResidentDTO;
 import com.simplifia.Symplifia.models.PaymentMethod;
 import com.simplifia.Symplifia.models.PaymentStatue;
+import com.simplifia.Symplifia.models.Resident;
 import com.simplifia.Symplifia.repository.ResidentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class ResidentService {
 
     public List<ResidentDTO> getResidentsWithInvoicesForYear(Integer idSyndic, Integer year) {
         List<Object[]> residents = residentRepository.findResidentsBySyndic(idSyndic);
+        System.out.println(residents);
         List<ResidentDTO> residentDTOs = new ArrayList<>();
 
         for (Object[] resident : residents) {
@@ -80,5 +82,10 @@ public class ResidentService {
             return invoiceDTO;
         }).collect(Collectors.toList());
     }
+
+    public Resident authenticate(String phoneNumber, String password) {
+        return residentRepository.findByPhoneNumberAndPassword(phoneNumber, password).orElse(null);
+    }
+
 }
 

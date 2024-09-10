@@ -2,6 +2,7 @@ package com.simplifia.Symplifia.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -45,13 +46,17 @@ public class Syndic {
     @Column(nullable = false)
     private String password;
 
+
     @OneToMany(mappedBy = "syndic")
+    @JsonIgnore
     private List<Building> buildings;
 
     @OneToMany(mappedBy = "syndic")
+    @JsonIgnore
     private List<Expense> expenses;
 
     @OneToMany(mappedBy = "syndic")
+    @JsonIgnore
     private List<Invoice> invoices;
 
 }
