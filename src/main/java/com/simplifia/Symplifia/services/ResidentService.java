@@ -25,7 +25,7 @@ public class ResidentService {
 
     public List<ResidentDTO> getResidentsWithInvoicesForYear(Integer idSyndic, Integer year) {
         List<Object[]> residents = residentRepository.findResidentsBySyndic(idSyndic);
-        System.out.println(residents);
+
         List<ResidentDTO> residentDTOs = new ArrayList<>();
 
         for (Object[] resident : residents) {

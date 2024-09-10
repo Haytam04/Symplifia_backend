@@ -41,4 +41,14 @@ public class AuthController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, null));
     }
+
+    @PostMapping("/post-syndic")
+    public ResponseEntity<Syndic> createSyndic(@RequestBody Syndic syndic) {
+        try {
+            Syndic newSyndic = syndicService.createSyndic(syndic);
+            return new ResponseEntity<>(newSyndic, HttpStatus.CREATED);
+        }catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+    }
 }

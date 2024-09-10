@@ -1,5 +1,6 @@
 package com.simplifia.Symplifia.repository;
 
+import com.simplifia.Symplifia.dto.InvoiceDTO;
 import com.simplifia.Symplifia.dto.ResidentDTO;
 import com.simplifia.Symplifia.models.Resident;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ResidentRepository extends JpaRepository<Resident,Integer> {
 
-    @Query(value = "SELECT r.id_resident AS idResident, r.full_name AS fullName, r.phone_number AS phoneNumber, b.name AS buildingName " +
+    @Query(value = "SELECT r.id_resident AS id, r.full_name AS fullName, r.phone_number AS phoneNumber, b.name AS buildingName " +
             "FROM resident r " +
             "JOIN building b ON r.id_building = b.id_building " +
             "WHERE b.id_syndic = :idSyndic", nativeQuery = true)
@@ -22,6 +23,8 @@ public interface ResidentRepository extends JpaRepository<Resident,Integer> {
             "FROM invoice i " +
             "WHERE i.id_resident = :idResident AND i.invoice_year = :year", nativeQuery = true)
     List<Object[]> findInvoicesForResidentByYear(@Param("idResident") Integer idResident, @Param("year") Integer year);
+
+
 
     Optional<Resident> findByPhoneNumberAndPassword(String phoneNumber, String password);
 }
