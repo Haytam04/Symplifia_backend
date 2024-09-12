@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +21,8 @@ public class SyndicService {
     }
 
     public Syndic createSyndic(Syndic syndic){
-        syndic.setInscriptionDate(new Date());
-        return syndicRepository.save(syndic);
+//       Syndic existSyndic = syndicRepository.findByPhoneNumber(syndic.getPhoneNumber());
+       syndic.setInscriptionDate(new Date());
+       return syndicRepository.save(syndic);
     }
 }

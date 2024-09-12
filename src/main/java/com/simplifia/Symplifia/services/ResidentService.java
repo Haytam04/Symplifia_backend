@@ -87,5 +87,9 @@ public class ResidentService {
         return residentRepository.findByPhoneNumberAndPassword(phoneNumber, password).orElse(null);
     }
 
+    public Resident createResident(Resident resident){
+        return residentRepository.save(resident);
+    }
+
 }
 

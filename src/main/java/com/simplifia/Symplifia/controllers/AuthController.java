@@ -2,7 +2,6 @@ package com.simplifia.Symplifia.controllers;
 
 import com.simplifia.Symplifia.dto.LoginRequest;
 import com.simplifia.Symplifia.dto.LoginResponse;
-import com.simplifia.Symplifia.dto.ResidentDTO;
 import com.simplifia.Symplifia.models.Resident;
 import com.simplifia.Symplifia.models.Syndic;
 import com.simplifia.Symplifia.services.ResidentService;
@@ -43,12 +42,18 @@ public class AuthController {
     }
 
     @PostMapping("/post-syndic")
-    public ResponseEntity<Syndic> createSyndic(@RequestBody Syndic syndic) {
+    public ResponseEntity<Syndic> postSyndic(@RequestBody Syndic syndic) {
         try {
             Syndic newSyndic = syndicService.createSyndic(syndic);
             return new ResponseEntity<>(newSyndic, HttpStatus.CREATED);
         }catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @PostMapping("/post-resident")
+    public ResponseEntity<Resident> postResident(@RequestBody Resident resident){
+            Resident newResident = residentService.createResident(resident);
+            return new ResponseEntity<>(newResident,HttpStatus.CREATED);
     }
 }
