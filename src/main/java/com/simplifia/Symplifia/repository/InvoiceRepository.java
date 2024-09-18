@@ -16,10 +16,9 @@ public interface InvoiceRepository extends JpaRepository<Invoice,Integer> {
 
     Invoice findByResident_idResidentAndInvoiceMonthAndInvoiceYear(Integer residentId, Month  invoiceMonth, Year invoiceYear);
 
-
     @Query("SELECT SUM(i.price) FROM Invoice i WHERE i.invoiceDate BETWEEN :startDate AND :endDate AND i.syndic.idSyndic = :idSyndic AND paymentStatue=Payed")
     BigDecimal findTotalInvoicePriceBetweenDates(@Param("startDate") Date startDate,
                                                 @Param("endDate") Date endDate,
                                                 @Param("idSyndic") Integer idSyndic
                                                 );
-}
+    }

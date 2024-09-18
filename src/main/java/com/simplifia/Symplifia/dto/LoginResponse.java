@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class LoginResponse {
-    private boolean authenticated;
-    private Object user;
+    private Integer id;
+    private String role;
 
-    public LoginResponse(boolean authenticated, Object user) {
-        this.authenticated = authenticated;
-        this.user = user;
+    public LoginResponse(Integer id, String role) {
+        this.id = id;
+        this.role = role;
     }
 }

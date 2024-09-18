@@ -1,8 +1,5 @@
 package com.simplifia.Symplifia.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,6 +26,9 @@ public class Resident {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String role;
 
     @ManyToOne
     @JoinColumn(name = "idBuilding")

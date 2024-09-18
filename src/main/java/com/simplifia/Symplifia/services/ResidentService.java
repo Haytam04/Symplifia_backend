@@ -83,13 +83,12 @@ public class ResidentService {
         }).collect(Collectors.toList());
     }
 
-    public Resident authenticate(String phoneNumber, String password) {
-        return residentRepository.findByPhoneNumberAndPassword(phoneNumber, password).orElse(null);
-    }
 
     public Resident createResident(Resident resident){
         return residentRepository.save(resident);
     }
+
+
 
 }
 

@@ -2,9 +2,13 @@ package com.simplifia.Symplifia.controllers;
 
 import com.simplifia.Symplifia.dto.LoginRequest;
 import com.simplifia.Symplifia.dto.LoginResponse;
+import com.simplifia.Symplifia.dto.SignUpRequest;
+import com.simplifia.Symplifia.models.Building;
 import com.simplifia.Symplifia.models.Resident;
 import com.simplifia.Symplifia.models.Syndic;
+import com.simplifia.Symplifia.services.LoginService;
 import com.simplifia.Symplifia.services.ResidentService;
+import com.simplifia.Symplifia.services.SignUpService;
 import com.simplifia.Symplifia.services.SyndicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,45 +19,42 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     private final SyndicService syndicService;
     private final ResidentService residentService;
+    private final LoginService loginService;
+    private final SignUpService signUpService;
 
-    @PostMapping("/syndic-login")
-    public ResponseEntity<?> loginSyndic(@RequestBody LoginRequest loginRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        String phoneNumber = loginRequest.getPhoneNumber();
+        String password = loginRequest.getPassword(); // hashed password
 
-        Syndic syndic = syndicService.authenticate(loginRequest.getPhoneNumber(), loginRequest.getPassword());
-        if (syndic != null) {
-            return ResponseEntity.ok(new LoginResponse(true, syndic));
+        LoginResponse authResponse = loginService.login(phoneNumber, password);
+
+        if (authResponse != null) {
+            return ResponseEntity.ok(authResponse);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, null));
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
-    @PostMapping("/resident-login")
-    public ResponseEntity<?> loginResident(@RequestBody LoginRequest loginRequest) {
-        Resident resident = residentService.authenticate(loginRequest.getPhoneNumber(), loginRequest.getPassword());
-
-        if (resident != null) {
-            return ResponseEntity.ok(new LoginResponse(true, resident));
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse(false, null));
+    @GetMapping("/check-phone/{phoneNumber}")
+    public boolean checkPhoneNumberExists(@PathVariable String phoneNumber) {
+        boolean exists = signUpService.phoneNumberExists(phoneNumber);
+        return exists;
     }
 
-    @PostMapping("/post-syndic")
-    public ResponseEntity<Syndic> postSyndic(@RequestBody Syndic syndic) {
-        try {
-            Syndic newSyndic = syndicService.createSyndic(syndic);
-            return new ResponseEntity<>(newSyndic, HttpStatus.CREATED);
-        }catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-        }
+    @PostMapping("/signup/syndic")
+    public ResponseEntity<?> signUpSyndic(@RequestBody Syndic syndic) {
+        signUpService.registerSyndic(syndic);
+        return ResponseEntity.ok(syndic);
     }
-
-    @PostMapping("/post-resident")
-    public ResponseEntity<Resident> postResident(@RequestBody Resident resident){
-            Resident newResident = residentService.createResident(resident);
-            return new ResponseEntity<>(newResident,HttpStatus.CREATED);
+    @PostMapping("/signup/resident")
+    public ResponseEntity<?> signUpResident(@RequestBody Resident resident) {
+        signUpService.registerResident(resident);
+        return ResponseEntity.ok(resident);
     }
 }

@@ -1,7 +1,6 @@
 package com.simplifia.Symplifia.repository;
 
-import com.simplifia.Symplifia.dto.InvoiceDTO;
-import com.simplifia.Symplifia.dto.ResidentDTO;
+
 import com.simplifia.Symplifia.models.Resident;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,5 +23,8 @@ public interface ResidentRepository extends JpaRepository<Resident,Integer> {
             "WHERE i.id_resident = :idResident AND i.invoice_year = :year", nativeQuery = true)
     List<Object[]> findInvoicesForResidentByYear(@Param("idResident") Integer idResident, @Param("year") Integer year);
 
+
     Optional<Resident> findByPhoneNumberAndPassword(String phoneNumber, String password);
+
+    boolean existsByPhoneNumber(String phoneNumber);
 }

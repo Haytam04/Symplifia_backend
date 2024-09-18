@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface SyndicRepository extends JpaRepository<Syndic,Integer> {
     Optional<Syndic> findByPhoneNumberAndPassword(String phoneNumber, String password);
 
-    Syndic findByPhoneNumber(String phoneNumber);
+    boolean existsByPhoneNumber(String phoneNumber);
 
     List<Syndic> findAll();
 }
