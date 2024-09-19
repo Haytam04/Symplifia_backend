@@ -28,9 +28,6 @@ public class LoginService {
         if (resident.isPresent()) {
             return new LoginResponse(resident.get().getIdResident(), "resident");
         }
-
-        // If not found in either table, return null
         return null;
-
     }
 }

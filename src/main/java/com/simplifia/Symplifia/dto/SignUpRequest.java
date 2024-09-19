@@ -11,5 +11,4 @@ public class SignUpRequest {
     private String bankName;
     private String bankAccount;
     private Long selectedBuilding;
-
 }

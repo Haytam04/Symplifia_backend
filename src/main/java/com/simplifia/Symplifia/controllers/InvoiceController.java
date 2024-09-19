@@ -25,7 +25,7 @@ public class InvoiceController {
             @RequestParam int invoiceMonth,
             @RequestParam int invoiceYear) {
 
-        Month month = Month.of(invoiceMonth+1);
+        Month month = Month.of(invoiceMonth);
         Year year = Year.of(invoiceYear);
 
         Invoice confirmedInvoice = invoiceService.confirmPayment(residentId, month, year);

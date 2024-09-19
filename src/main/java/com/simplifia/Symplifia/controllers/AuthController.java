@@ -2,8 +2,6 @@ package com.simplifia.Symplifia.controllers;
 
 import com.simplifia.Symplifia.dto.LoginRequest;
 import com.simplifia.Symplifia.dto.LoginResponse;
-import com.simplifia.Symplifia.dto.SignUpRequest;
-import com.simplifia.Symplifia.models.Building;
 import com.simplifia.Symplifia.models.Resident;
 import com.simplifia.Symplifia.models.Syndic;
 import com.simplifia.Symplifia.services.LoginService;
@@ -30,7 +28,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         String phoneNumber = loginRequest.getPhoneNumber();
-        String password = loginRequest.getPassword(); // hashed password
+        String password = loginRequest.getPassword();
 
         LoginResponse authResponse = loginService.login(phoneNumber, password);
 

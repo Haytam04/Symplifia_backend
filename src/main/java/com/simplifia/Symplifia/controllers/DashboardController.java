@@ -23,15 +23,6 @@ public class DashboardController {
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate,
             @RequestParam("syndicId") Integer syndicId) {
 
-        BigDecimal totalInvoicePrice = dashboardService.getTotalInvoicePriceBetweenDates(startDate, endDate, syndicId);
-        BigDecimal totalExpenseCost = dashboardService.getTotalExpenseCostBetweenDates(startDate, endDate, syndicId);
-
-        Map<String, BigDecimal> totals = new HashMap<>();
-        totals.put("totalInvoicePrice", totalInvoicePrice != null ? totalInvoicePrice : BigDecimal.ZERO);
-        totals.put("totalExpenseCost", totalExpenseCost != null ? totalExpenseCost : BigDecimal.ZERO);
-        totals.put("remaining", (totalInvoicePrice != null ? totalInvoicePrice : BigDecimal.ZERO)
-                .subtract(totalExpenseCost != null ? totalExpenseCost : BigDecimal.ZERO));
-
-        return totals;
+      return  dashboardService.getTotalsMap(startDate,endDate,syndicId);
     }
 }
